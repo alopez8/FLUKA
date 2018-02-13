@@ -1,0 +1,265 @@
+* beginning of simulation working
+TITLE
+Simulation of Ralph's ShowersFromFile generator with simple MJD geometry
+*BEAM            -30.                                                  MUON-
+*BEAMPOS          0.0       0.0      -70.
+* Begin defining atomic materials and low-mats
+MATERIAL          1.     1.007  8.988E-5                            1.H1
+MATERIAL          1.     1.007  8.988E-5                            2.H2
+MATERIAL          5.    10.806      2.34                           10.B10
+MATERIAL          5.    10.806      2.34                           11.B11
+MATERIAL          6.   12.0096      2.26                           12.C12
+MATERIAL          6.   12.0096      2.26                           13.C13
+MATERIAL          7.    14.006  0.001251                           14.N14
+MATERIAL          7.    14.006  0.001251                           15.N15
+MATERIAL          8.    15.999  0.001429                           16.O16
+MATERIAL          8.    15.999  0.001429                           17.O17
+MATERIAL          8.    15.999  0.001429                           18.O18
+MATERIAL         14.    28.084    2.3290                           28.Si28
+MATERIAL         14.    28.084    2.3290                           29.Si29
+MATERIAL         14.    28.084    2.3290                           30.Si30
+MATERIAL         18.    39.948  0.001784                           36.Ar36
+MATERIAL         18.    39.948  0.001784                           38.Ar38
+MATERIAL         18.    39.948  0.001784                           40.Ar40
+MATERIAL         27.    55.845     7.874                           54.Fe54
+MATERIAL         27.    55.845     7.874                           56.Fe56
+MATERIAL         27.    55.845     7.874                           57.Fe57
+MATERIAL         27.    55.845     7.874                           58.Fe58
+MATERIAL         29.    63.546      8.96                           63.Cu63
+MATERIAL         29.    63.546      8.96                           65.Cu65
+MATERIAL         29.    63.546      8.96                           63.Cu63cold
+MATERIAL         29.    63.546      8.96                           65.Cu65cold
+MATERIAL         32.    72.630     5.323                           70.Ge70
+MATERIAL         32.    72.630     5.323                           72.Ge72
+MATERIAL         32.    72.630     5.323                           73.Ge73
+MATERIAL         32.    72.630     5.323                           74.Ge74
+MATERIAL         32.    72.630     5.323                           76.Ge76
+MATERIAL         82.     207.2     11.34                          204.Pb204
+MATERIAL         82.     207.2     11.34                          206.Pb206
+MATERIAL         82.     207.2     11.34                          207.Pb207
+MATERIAL         82.     207.2     11.34                          208.Pb208
+LOW-MAT           H1        1.       -3.      296.                    HYDROGEN
+LOW-MAT           H2        1.       -3.      296.                    HYDROGEN
+LOW-MAT          B10        5.       10.      296.                    BORON-10
+LOW-MAT          B11        5.       11.      296.                    BORON-11
+LOW-MAT          C12        6.       -2.      296.                    CARBON
+LOW-MAT          C13        6.       -2.      296.                    CARBON
+LOW-MAT          N14        7.       14.      296.                    NITRO-14
+LOW-MAT          N15        7.       -2.      296.                    NITROGEN
+LOW-MAT          O16        8.       16.      296.                    OXYGEN
+LOW-MAT          O17        8.       16.      296.                    OXYGEN
+LOW-MAT          O18        8.       16.      296.                    OXYGEN
+LOW-MAT         Si28       14.       -2.      296.                    SILICON
+LOW-MAT         Si29       14.       -2.      296.                    SILICON
+LOW-MAT         Si30       14.       -2.      296.                    SILICON
+LOW-MAT         Ar36       18.       -2.      296.                    ARGON
+LOW-MAT         Ar38       18.       -2.      296.                    ARGON
+LOW-MAT         Ar40       18.       40.      296.                    ARGON-40
+LOW-MAT         Fe54       26.       -2.      296.                    IRON
+LOW-MAT         Fe56       26.       -2.      296.                    IRON
+LOW-MAT         Fe57       26.       -2.      296.                    IRON
+LOW-MAT         Fe58       26.       -2.      296.                    IRON
+LOW-MAT         Cu63       29.       -2.      296.                    COPPER
+LOW-MAT         Cu65       29.       -2.      296.                    COPPER
+LOW-MAT     Cu63cold       29.       -2.       87.                    COPPER
+LOW-MAT     Cu65cold       29.       -2.       87.                    COPPER
+LOW-MAT         Ge70       32.       -2.       87.                    GERMANIU
+LOW-MAT         Ge72       32.       -2.       87.                    GERMANIU
+LOW-MAT         Ge73       32.       -2.       87.                    GERMANIU
+LOW-MAT         Ge74       32.       -2.       87.                    GERMANIU
+LOW-MAT         Ge76       32.       -2.       87.                    GERMANIU
+LOW-MAT        Pb204       82.       -2.      296.                    LEAD
+LOW-MAT        Pb206       82.       -2.      296.                    LEAD
+LOW-MAT        Pb207       82.       -2.      296.                    LEAD
+LOW-MAT        Pb208       82.      208.      296.                    208-PB
+* begin making compound materials (natural elements)
+* Don't give low-mat for compounds
+MATERIAL                        8.988E-5                              HMAGE
+COMPOUND     0.99985        H1   0.00015        H2                    HMAGE
+MATERIAL                            2.34                              BMAGE
+COMPOUND         0.2       B10       0.8       B11                    BMAGE
+MATERIAL                            2.26                              CMAGE
+COMPOUND       0.989       C12     0.011       C13                    CMAGE
+MATERIAL                        0.001251                              NMAGE
+COMPOUND      0.9963       N14    0.0037       N15                    NMAGE
+MATERIAL                        0.001429                              OMAGE
+COMPOUND      0.9976       O16    0.0004       O17     0.002       O18OMAGE
+MATERIAL                          2.3290                              SiMAGE
+COMPOUND      0.9223      Si28    0.0467      Si29     0.031      Si30SiMAGE
+MATERIAL                        0.001784                              ArMAGE
+COMPOUND     0.00337      Ar36   0.00063      Ar38     0.996      Ar40ArMAGE
+MATERIAL                           7.874                              FeMAGE
+COMPOUND       0.058      Fe54    0.9172      Fe56     0.022      Fe57FeMAGE
+COMPOUND      0.0028      Fe58                                        FeMAGE
+MATERIAL                            8.96                              CuMAGE
+COMPOUND      0.6917      Cu63    0.3083      Cu65                    CuMAGE
+MATERIAL                            8.96                              CuMcold
+COMPOUND      0.6917  Cu63cold    0.3083  Cu65cold                    CuMcold
+MATERIAL                           11.34                              PbMAGE
+COMPOUND       0.014     Pb204     0.241     Pb206     0.221     Pb207PbMAGE
+COMPOUND       0.524     Pb208                                        PbMAGE
+* Begin compounds for materials used in MJD
+MATERIAL                        0.001161                              AirDavis
+COMPOUND        0.76     NMAGE      0.23     OMAGE      0.01    ArMAGEAirDavis
+MATERIAL                        0.001251                              NGAS
+COMPOUND          1.     NMAGE                                        NGAS
+MATERIAL                      6.24151E-7                              VacCryo
+COMPOUND         0.5     NMAGE       0.5     OMAGE                    VacCryo
+* OverFloor MATerial
+MATERIAL                           7.874                              OFmat
+COMPOUND          1.    FeMAGE                                        OFmat
+MATERIAL                            8.96                              CuEF
+COMPOUND          1.     CMAGE                                        CuEF
+MATERIAL                            8.96                              CuEFcryo
+COMPOUND          1.   CuMcold                                        CuEFcryo
+MATERIAL                             2.6                              RockMat
+COMPOUND       0.333    SiMAGE     0.667     OMAGE                    RockMat
+MATERIAL                           5.545                              EnrGe
+COMPOUND        0.86      Ge76      0.14      Ge74                    EnrGe
+MATERIAL                           5.323                              NatGe
+COMPOUND      0.2124      Ge70    0.2766      Ge72     0.772      Ge73NatGe
+COMPOUND      0.3594      Ge74    0.0744      Ge76                    NatGe
+MATERIAL                           11.36                              PbShield
+COMPOUND          1.    PbMAGE                                        PbShield
+MATERIAL                           0.948                              PolyEth
+COMPOUND         0.5     HMAGE       0.5     CMAGE                    PolyEth
+* 10% borated poly
+MATERIAL                            1.03                              BorPoly
+COMPOUND       0.638     HMAGE     0.316     CMAGE     0.046     BMAGEBorPoly
+MATERIAL                            1.03                              ScintPla
+COMPOUND         0.5     HMAGE       0.5     CMAGE                    ScintPla
+* Begin Geometry
+GEOBEGIN                             24.       23.                    COMBNAME
+mjdgeo.geo
+geo.out
+GEOEND
+ASSIGNMA    BLCKHOLE        BH
+ASSIGNMA      VACUUM        VA
+ASSIGNMA     RockMat      Rock
+ASSIGNMA    AirDavis    Cavern
+ASSIGNMA     BorPoly  rborpoly
+ASSIGNMA     PolyEth     rpoly
+ASSIGNMA     PolyEth    flass1
+ASSIGNMA     PolyEth    flass2
+ASSIGNMA        NGAS    pocket
+ASSIGNMA       OFmat    overfl
+* Begin assignmat to veto panels
+ASSIGNMA    ScintPla    vetop1
+ASSIGNMA    ScintPla    vetop2
+ASSIGNMA    ScintPla    vetop3
+ASSIGNMA    ScintPla    vetop4
+ASSIGNMA    ScintPla    vetop5
+ASSIGNMA    ScintPla    vetop6
+ASSIGNMA    ScintPla    vetop7
+ASSIGNMA    ScintPla    vetop8
+ASSIGNMA    ScintPla    vetop9
+ASSIGNMA    ScintPla   vetop10
+ASSIGNMA    ScintPla   vetop11
+ASSIGNMA    ScintPla   vetop12
+ASSIGNMA    ScintPla   vetop13
+ASSIGNMA    ScintPla   vetop14
+ASSIGNMA    ScintPla   vetop15
+ASSIGNMA    ScintPla   vetop16
+ASSIGNMA    ScintPla   vetop17
+ASSIGNMA    ScintPla   vetop18
+ASSIGNMA    ScintPla   vetop19
+ASSIGNMA    ScintPla   vetop20
+ASSIGNMA    ScintPla   vetop21
+ASSIGNMA    ScintPla   vetop22
+ASSIGNMA    ScintPla   vetop23
+ASSIGNMA    ScintPla   vetop24
+ASSIGNMA    ScintPla   vetop25
+ASSIGNMA    ScintPla   vetop26
+ASSIGNMA    ScintPla   vetop27
+ASSIGNMA    ScintPla   vetop28
+ASSIGNMA    ScintPla   vetop29
+ASSIGNMA    ScintPla   vetop30
+ASSIGNMA    ScintPla   vetop31
+ASSIGNMA    ScintPla   vetop32
+* begin passive shielding assign mat
+ASSIGNMA    PbShield        pb
+ASSIGNMA        NGAS      pbSP
+ASSIGNMA    PbShield    shadsh
+ASSIGNMA        CuEF       cuo
+ASSIGNMA        CuEF       cui
+ASSIGNMA        NGAS     cuoSP
+ASSIGNMA        NGAS     cuiSP
+ASSIGNMA    CuEFcryo     cryoe
+ASSIGNMA    CuEFcryo     cryow
+ASSIGNMA    CuEFcryo   cryowca
+ASSIGNMA    CuEFcryo   cryoeca
+ASSIGNMA     VacCryo   cryowSP
+ASSIGNMA     VacCryo   cryoeSP
+* Begin assignmat to C1 detectors
+ASSIGNMA       EnrGe   rc1p1d1
+ASSIGNMA       EnrGe   rc1p1d2
+ASSIGNMA       EnrGe   rc1p1d3
+ASSIGNMA       EnrGe   rc1p1d4
+ASSIGNMA       NatGe   rc1p2d1
+ASSIGNMA       EnrGe   rc1p2d2
+ASSIGNMA       EnrGe   rc1p2d3
+ASSIGNMA       EnrGe   rc1p2d4
+ASSIGNMA       NatGe   rc1p3d1
+ASSIGNMA       EnrGe   rc1p3d2
+ASSIGNMA       EnrGe   rc1p3d3
+ASSIGNMA       EnrGe   rc1p3d4
+ASSIGNMA       NatGe   rc1p4d1
+ASSIGNMA       NatGe   rc1p4d2
+ASSIGNMA       NatGe   rc1p4d3
+ASSIGNMA       NatGe   rc1p4d4
+ASSIGNMA       NatGe   rc1p4d5
+ASSIGNMA       NatGe   rc1p5d1
+ASSIGNMA       EnrGe   rc1p5d2
+ASSIGNMA       EnrGe   rc1p5d3
+ASSIGNMA       EnrGe   rc1p5d4
+ASSIGNMA       EnrGe   rc1p6d1
+ASSIGNMA       EnrGe   rc1p6d2
+ASSIGNMA       EnrGe   rc1p6d3
+ASSIGNMA       EnrGe   rc1p6d4
+ASSIGNMA       NatGe   rc1p7d1
+ASSIGNMA       EnrGe   rc1p7d2
+ASSIGNMA       EnrGe   rc1p7d3
+ASSIGNMA       EnrGe   rc1p7d4
+* Begin assignmat C2 detectors
+ASSIGNMA       NatGe   rc2p1d1
+ASSIGNMA       EnrGe   rc2p1d2
+ASSIGNMA       EnrGe   rc2p1d3
+ASSIGNMA       EnrGe   rc2p1d4
+ASSIGNMA       NatGe   rc2p2d1
+ASSIGNMA       NatGe   rc2p2d2
+ASSIGNMA       NatGe   rc2p2d3
+ASSIGNMA       NatGe   rc2p2d4
+ASSIGNMA       NatGe   rc2p2d5
+ASSIGNMA       EnrGe   rc2p3d1
+ASSIGNMA       EnrGe   rc2p3d2
+ASSIGNMA       EnrGe   rc2p3d3
+ASSIGNMA       NatGe   rc2p4d1
+ASSIGNMA       NatGe   rc2p4d2
+ASSIGNMA       NatGe   rc2p4d3
+ASSIGNMA       NatGe   rc2p4d4
+ASSIGNMA       NatGe   rc2p4d5
+ASSIGNMA       NatGe   rc2p5d1
+ASSIGNMA       EnrGe   rc2p5d2
+ASSIGNMA       EnrGe   rc2p5d3
+ASSIGNMA       EnrGe   rc2p5d4
+ASSIGNMA       EnrGe   rc2p6d1
+ASSIGNMA       EnrGe   rc2p6d2
+ASSIGNMA       EnrGe   rc2p6d3
+ASSIGNMA       EnrGe   rc2p6d4
+ASSIGNMA       EnrGe   rc2p7d1
+ASSIGNMA       EnrGe   rc2p7d2
+ASSIGNMA       EnrGe   rc2p7d3
+ASSIGNMA       NatGe   rc2p7d4
+SOURCE
+* Begin physics settings
+EMFCUT         -0.01     0.010        1.  AirDavis  ScintPla          PROD-CUT
+PHYSICS           1.                                                  COALESCE
+PHYSICS           3.                                                  EVAPORAT
+RADDECAY          2.
+* Begin estimators/scoring
+USERDUMP        100.       77.       0.0        1.                    mjdud.txt
+USERWEIG                             0.0                  1.       0.0
+SCORE         ENERGY     MUON-
+RANDOMIZ          1.
+START         10000.
+STOP
