@@ -38,6 +38,7 @@
       INCLUDE '(QUEMGD)'
       INCLUDE '(SUMCOU)'
       INCLUDE '(TRACKR)'
+      INCLUDE '(RESNUC)'
 *
       DIMENSION DTQUEN ( MXTRCK, MAXQMG )
 *
@@ -125,6 +126,8 @@
          END IF
 	 OPEN ( UNIT = 77, FILE = FILNAM, STATUS = 'UNKNOWN', FORM =
      &          'FORMATTED' )
+	 OPEN ( UNIT = 78, FILE = "sim_progress.txt", 
+     & STATUS = 'UNKNOWN', FORM = 'FORMATTED' )
 	!This section uses the region names to gather/record the region numbers in IdUCX[0,1]
       END IF
 
@@ -605,6 +608,8 @@
          END IF
          OPEN ( UNIT = 77, FILE = FILNAM, STATUS = 'UNKNOWN', FORM =
      &          'FORMATTED' )
+	 OPEN ( UNIT = 78, FILE = "sim_progress.txt", 
+     & STATUS = 'UNKNOWN', FORM = 'FORMATTED' )
       END IF
       WRITE(77,*) "SODRAW: ILOFLK = ", ILOFLK(NPFLKA), 
      & ", (X,Y,Z)(cm) = (", XFLK(NPFLKA), ",",
@@ -612,17 +617,15 @@
      & "), ENERGY(GeV) = ", TKEFLK(NPFLKA), 
      & ", WEIGHT = ", WTFLK(NPFLKA)
 
+*      WRITE(80,*) "SODRAW: ILOFLK = ", ILOFLK(NPFLKA), 
+*     & ", (X,Y,Z)(cm) = (", XFLK(NPFLKA), ",",
+*     & YFLK(NPFLKA), ",",ZFLK(NPFLKA), 
+*     & "), ENERGY(GeV) = ", TKEFLK(NPFLKA), 
+*     & ", WEIGHT = ", WTFLK(NPFLKA)
 
-*      IF (JTRACK .EQ. 11) THEN
-*	WRITE (77,*) "-------------------------------------------------"
-*        WRITE (77,*) "SODRAW1", JTRACK, SNGL (TKEFLK (0)),
-*     &          SNGL (TKEFLK (I)), NP
-*        WRITE (77,*) "SODRAW2", NCASE, NEVENT (I)
-*        WRITE (77,*) "SODRAW3", SNGL (WTFLK (I)), SNGL (WEIPRI) 
-*        WRITE (77,*) "SODRAW4", " REGION # = ", NRGFLK (I)
-*	WRITE (77,*) "-------------------------------------------------"
-*	WRITE(77,*) ""
-*      END IF
+
+	WRITE(78, '(A18, I5, A8, I5)') "SODRAW: Primary # ", NCASE,
+     & " out of ", NCASES
 *  +-------------------------------------------------------------------*
 *  |  (Radioactive) isotope: it works only for 1 source particle on
 *  |  the stack for the time being
@@ -714,8 +717,132 @@
          END IF
          OPEN ( UNIT = IODRAW, FILE = FILNAM, STATUS = 'NEW', FORM =
      &          'UNFORMATTED' )
+	 OPEN ( UNIT = 78, FILE = "sim_progress.txt", 
+     & STATUS = 'UNKNOWN', FORM = 'FORMATTED' )
+	 OPEN ( UNIT = 80, FILE = "interactions.txt", 
+     & STATUS = 'UNKNOWN', FORM = 'FORMATTED' )
       END IF
 * No output by default:
+
+      CALL GEOR2N(MREG,   MRGNAM, IERR1)
+
+
+	IF ( (MRGNAM .EQ. "rc1p1d1") .OR. (MRGNAM .EQ. "rc1p1d2") .OR.
+     & (MRGNAM .EQ. "rc1p1d3") .OR. (MRGNAM .EQ. "rc1p1d4") .OR.
+     & (MRGNAM .EQ. "rc1p2d1") .OR. (MRGNAM .EQ. "rc1p2d2") .OR. 
+     & (MRGNAM .EQ. "rc1p2d3") .OR. (MRGNAM .EQ. "rc1p2d4") .OR.
+     & (MRGNAM .EQ. "rc1p3d1") .OR. (MRGNAM .EQ. "rc1p3d2") .OR. 
+     & (MRGNAM .EQ. "rc1p3d3") .OR. (MRGNAM .EQ. "rc1p3d4") .OR.
+     & (MRGNAM .EQ. "rc1p4d1") .OR. (MRGNAM .EQ. "rc1p4d2") .OR. 
+     & (MRGNAM .EQ. "rc1p4d3") .OR. (MRGNAM .EQ. "rc1p4d4") .OR.
+     & (MRGNAM .EQ. "rc1p4d5") .OR.
+     & (MRGNAM .EQ. "rc1p5d1") .OR. (MRGNAM .EQ. "rc1p5d2") .OR. 
+     & (MRGNAM .EQ. "rc1p5d3") .OR. (MRGNAM .EQ. "rc1p5d4") .OR.
+     & (MRGNAM .EQ. "rc1p6d1") .OR. (MRGNAM .EQ. "rc1p6d2") .OR. 
+     & (MRGNAM .EQ. "rc1p6d3") .OR. (MRGNAM .EQ. "rc1p6d4") .OR.
+     & (MRGNAM .EQ. "rc1p7d1") .OR. (MRGNAM .EQ. "rc1p7d2") .OR. 
+     & (MRGNAM .EQ. "rc1p7d3") .OR. (MRGNAM .EQ. "rc1p7d4") .OR.
+     & (MRGNAM .EQ. "rc2p1d1") .OR. (MRGNAM .EQ. "rc2p1d2") .OR.
+     & (MRGNAM .EQ. "rc2p1d3") .OR. (MRGNAM .EQ. "rc2p1d4") .OR.
+     & (MRGNAM .EQ. "rc2p2d1") .OR. (MRGNAM .EQ. "rc2p2d2") .OR.
+     & (MRGNAM .EQ. "rc2p2d3") .OR. (MRGNAM .EQ. "rc2p2d4") .OR.
+     & (MRGNAM .EQ. "rc2p2d5") .OR.
+     & (MRGNAM .EQ. "rc2p3d1") .OR. (MRGNAM .EQ. "rc2pdd2") .OR.
+     & (MRGNAM .EQ. "rc2p3d3") .OR.
+     & (MRGNAM .EQ. "rc2p4d1") .OR. (MRGNAM .EQ. "rc2p4d2") .OR.
+     & (MRGNAM .EQ. "rc2p4d3") .OR. (MRGNAM .EQ. "rc2p4d4") .OR.
+     & (MRGNAM .EQ. "rc2p4d5") .OR.
+     & (MRGNAM .EQ. "rc2p5d1") .OR. (MRGNAM .EQ. "rc2p5d2") .OR.
+     & (MRGNAM .EQ. "rc2p5d3") .OR. (MRGNAM .EQ. "rc2p5d4") .OR.
+     & (MRGNAM .EQ. "rc2p6d1") .OR. (MRGNAM .EQ. "rc2p6d2") .OR.
+     & (MRGNAM .EQ. "rc2p6d3") .OR. (MRGNAM .EQ. "rc2p6d4") .OR.
+     & (MRGNAM .EQ. "rc2p7d1") .OR. (MRGNAM .EQ. "rc2p7d2") .OR.
+     & (MRGNAM .EQ. "rc2p7d3") .OR. (MRGNAM .EQ. "rc2p7d4") .OR.
+     & (MRGNAM .EQ. "vetop1") .OR. (MRGNAM .EQ. "vetop2") 
+     & .OR. (MRGNAM .EQ. "vetop3") .OR. (MRGNAM .EQ. "vetop4") 
+     & .OR. (MRGNAM .EQ. "vetop5") .OR. (MRGNAM .EQ. "vetop6") 
+     & .OR. (MRGNAM .EQ. "vetop7") .OR. (MRGNAM .EQ. "vetop8") 
+     & .OR. (MRGNAM .EQ. "vetop9") .OR. (MRGNAM .EQ. "vetop10") 
+     & .OR. (MRGNAM .EQ. "vetop11") .OR. (MRGNAM .EQ. "vetop12")
+     & .OR. (MRGNAM .EQ. "vetop13") .OR. (MRGNAM .EQ. "vetop14") 
+     & .OR. (MRGNAM .EQ. "vetop15") .OR. (MRGNAM .EQ. "vetop16") 
+     & .OR. (MRGNAM .EQ. "vetop17") .OR. (MRGNAM .EQ. "vetop18") 
+     & .OR. (MRGNAM .EQ. "vetop19") .OR. (MRGNAM .EQ. "vetop20")
+     & .OR. (MRGNAM .EQ. "vetop21") .OR. (MRGNAM .EQ. "vetop22")
+     & .OR. (MRGNAM .EQ. "vetop23") .OR. (MRGNAM .EQ. "vetop24")
+     & .OR. (MRGNAM .EQ. "vetop25") .OR. (MRGNAM .EQ. "vetop26")
+     & .OR. (MRGNAM .EQ. "vetop27") .OR. (MRGNAM .EQ. "vetop28")
+     & .OR. (MRGNAM .EQ. "vetop29") .OR. (MRGNAM .EQ. "vetop30")
+     & .OR. (MRGNAM .EQ. "vetop31") .OR. (MRGNAM .EQ. "vetop32")) THEN
+
+* +-------------------------------------------------------------------* 
+* |DUMP#1 PRIMARY PARTICLE INFO FROM (TRACK) 
+* | 
+* |Dump : |DUMPID|NCASE|NCASES|JTRACK|NPFLKA|ICODE|NP|NPHEAVY|KE|MRGNAM|MREG|INITKE|PRIWEI 
+
+ 	WRITE( 80, '(A5,I5.5,1X,I5,1X,I2,1X,I3,1X,I3,1X,
+     &I3,1X,I3,2X,A8,1X,I3,1X,ES10.3,1X,ES10.3)')
+     & 'TRCK ',NCASE,NCASES,JTRACK,NPFLKA,ICODE,NP,NPHEAV,
+     & MRGNAM,MREG,INITKE,PRIWEI 
+
+
+* | 
+* +-------------------------------------------------------------------* 
+* |DUMP#2 LOOP OVER SECONDARIES (GENSTK) 
+* |For the moment the Z and A are 0. Taken care of in post processing 
+* | 
+* |* |Dump : |DUMPID|NCASE|NCASES|JTRACK|ip|ICODE|KPART(ip)|_|TKI(ip)|WEI(ip)
+* |* WEI(ip) is statistical weight of secondary
+      	do 10 ip = 1, NP 
+         WRITE( 80, '(A5,I5.5,1X,I5,1X,I2,1X,I3,1X,I3,1X,I3,19X
+     &,ES10.3,1X,ES10.3)')
+     &'GNSK ',NCASE,NCASES,JTRACK,ip,ICODE,KPART(ip),TKI(ip),
+     &WEI(ip)
+ 
+   10 continue 
+
+
+* | 
+* +-------------------------------------------------------------------* 
+* |DUMP#3 RESIDUAL NUCLEUS (RESNUC) 
+* | 
+* |Position 4: '1' is replacing the ip counter since only 1 residual 
+* |nucleus will be produce from RESNUC 
+* |Position 6: '0' is replacing KPART and KHEAVY 
+* |Could not find a weighting factor in (RESNUC) so last position is 
+* |default '1.0' 
+* | 
+* |* |Dump: |DUMPID|NCASE|NCASES|JTRACK|_|ICODE|_|Z|A|ISMRES|_|EKRES|1.0
+* |* ISMRES is the isomeric state of the residual nuclei
+* |* statistical weight is set to 1
+* |
+
+
+      	IF (ICRES.NE.0.and.IBRES.NE.0) THEN 
+      	 WRITE( 80, '(A5,I5.5,1X,I5,1X,I2,5X,I3,5X,
+     &I3,1X,I4,1X,I4,5X,ES10.3,1X,A10)')
+     &'RSNC ',NCASE,NCASES,JTRACK, 
+     &ICODE,ICRES,IBRES,ISMRES,EKRES,"1.000E+00" 
+      	END IF 
+
+* | 
+* +-------------------------------------------------------------------* 
+* |DUMP#4 LOOP OVER HEAVY SECONDARIES (FHEAVY) 
+* | 
+* |* |Dump: |DUMPID|NCASE|NCASES|JTRACK|ip|ICODE|KHEAVY(ip)|Z|A|IMHEAV(kp)|_|TKHEAV(ip)|WHEAVY(ip)
+* |* IMHEAV(kp) is the isomeric state of the heavy particle
+* |
+      	do 20 ip = 1, NPHEAV 
+      	 WRITE( 80, '(A5,I5.5,1X,I5,1X,I2,1X,I3,1X,I3,1X,
+     &I3,1X,I3,1X,I4,1X,I4,5X,ES10.3,1X,ES10.3)') 
+     &'FHVY ',NCASE,NCASES,JTRACK 
+     &,ip,ICODE,KHEAVY(ip),ICHEAV(KHEAVY(ip)),IBHEAV(KHEAVY(ip))
+     &,IMHEAV(KHEAVY(ip)),TKHEAV(ip),WHEAVY(ip)
+   20 continue 
+   
+	END IF
+
+
       RETURN
 *=== End of subrutine Mgdraw ==========================================*
       END

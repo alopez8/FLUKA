@@ -1,0 +1,58 @@
+TITLE
+100 GeV Muons Incident on 1 m^3 of Natural Pb. Neutron tracker.
+DEFAULTS                                                              PRECISIO
+BEAM           -100.                                                  MUON+
+* 1mm from cube
+BEAMPOS          0.0       0.0      -0.1
+MATERIAL         82.     207.2     11.34                          204.Pb204
+MATERIAL         82.     207.2     11.34                          206.Pb206
+MATERIAL         82.     207.2     11.34                          207.Pb207
+MATERIAL         82.     207.2     11.34                          208.Pb208
+LOW-MAT        Pb204       82.       -2.      296.                    LEAD
+LOW-MAT        Pb206       82.       -2.      296.                    LEAD
+LOW-MAT        Pb207       82.       -2.      296.                    LEAD
+LOW-MAT        Pb208       82.       -2.      296.                    LEAD
+MATERIAL                           11.34                              PbMAGE
+COMPOUND       0.014     Pb204     0.241     Pb206     0.221     Pb207PbMAGE
+COMPOUND       0.524     Pb208                                        PbMAGE
+GEOBEGIN                                                              COMBNAME
+    0    0          1m^3 Pb in vacuum
+RPP blkhole    -1100. 1100. -1100. 1100. -1100. 1100.
+RPP vacuum     -1000. 1000. -1000. 1000. -1000. 1000.
+RPP lead       -50. 50. -50. 50. 0.0 100.
+XYP sstop      0.0
+RPP zone       -50. 50. -50. 50. 90. 500.
+END
+BH           5 +blkhole -vacuum
+* Region #2
+VAS          5 +vacuum+sstop
+* Region #3
+VA           5 +vacuum -sstop-lead-zone
+* Region #4
+leadcube     5 +lead
+* Region #5
+nzone        5 +zone -lead
+END
+GEOEND
+ASSIGNMA    BLCKHOLE        BH
+ASSIGNMA      VACUUM       VAS
+ASSIGNMA      VACUUM        VA
+ASSIGNMA      VACUUM     nzone
+ASSIGNMA      PbMAGE  leadcube
+* EMFCUT currently set to e+e-/gamma production threshold of (KE =) 10 MeV. What should I use?
+EMFCUT         -0.01     0.010        1.      LEAD                    PROD-CUT
+PHYSICS           1.                                                  COALESCE
+PHYSICS           3.                                                  EVAPORAT
+RADDECAY          2.
+RESNUCLE          3.      -26.      100.            @ALLREGS          alldet
+DCYSCORE         -1.                        alldet    alldet        1.RESNUCLE
+RESNUCLE          3.      -27.      100.            leadcube          pbdet
+DCYSCORE         -1.                         pbdet     pbdet        1.RESNUCLE
+SCORE         ENERGY  BEAMPART
+* minimum Neutron energy is 1 eV
+USRCOLL          -1.   NEUTRON      -30.  leadcube  1000000.          Nflux
+USRCOLL        1000.     1.E-9                                         &
+USERDUMP        100.       23.       0.0        1.                    MuPb.txt
+RANDOMIZ          1.
+START          1000.
+STOP

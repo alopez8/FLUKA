@@ -1,8 +1,6 @@
 * beginning of simulation working
 TITLE
 Simulation of Ralph's ShowersFromFile generator with simple MJD geometry
-*BEAM            -30.                                                  MUON-
-*BEAMPOS          0.0       0.0      -70.
 * Begin defining atomic materials and low-mats
 MATERIAL          1.     1.007  8.988E-5                            1.H1
 MATERIAL          1.     1.007  8.988E-5                            2.H2
@@ -256,10 +254,41 @@ EMFCUT         -0.01     0.010        1.  AirDavis  ScintPla          PROD-CUT
 PHYSICS           1.                                                  COALESCE
 PHYSICS           3.                                                  EVAPORAT
 RADDECAY          2.
+*RESNUCLE          3.      -26.                       rc1p1d1
+*RESNUCLE          3.      -26.      100.             rc2p1d1   1.15E-4dc2p1d1
+*RESNUCLE          3.      -26.      100.             rc2p1d2   1.15E-4dc2p1d2
+*RESNUCLE          3.      -26.      100.             rc2p1d3   1.15E-4dc2p1d3
+*RESNUCLE          3.      -26.      100.             rc2p1d4   1.15E-4dc2p1d4
+*RESNUCLE          3.      -26.      100.             rc2p2d1   1.15E-4dc2p2d1
+*RESNUCLE          3.      -26.      100.             rc2p2d2   1.15E-4dc2p2d2
+*RESNUCLE          3.      -26.      100.             rc2p2d3   1.15E-4dc2p2d3
+*RESNUCLE          3.      -26.      100.             rc2p2d4   1.15E-4dc2p2d4
+*RESNUCLE          3.      -26.      100.             rc2p2d5   1.15E-4dc2p2d5
+*RESNUCLE          3.      -26.      100.             rc2p3d1   1.15E-4dc2p3d1
+*RESNUCLE          3.      -26.      100.             rc2p3d2   1.15E-4dc2p3d2
+*RESNUCLE          3.      -26.      100.             rc2p3d3   1.15E-4dc2p3d3
+*RESNUCLE          3.      -26.      100.             rc2p4d1   1.15E-4dc2p4d1
+*RESNUCLE          3.      -26.      100.             rc2p4d2   1.15E-4dc2p4d2
+*RESNUCLE          3.      -26.      100.             rc2p4d3   1.15E-4dc2p4d3
+*RESNUCLE          3.      -26.      100.             rc2p4d4   1.15E-4dc2p4d4
+*RESNUCLE          3.      -26.      100.             rc2p4d5   1.15E-4dc2p4d5
+*RESNUCLE          3.      -26.      100.             rc2p5d1   1.15E-4dc2p5d1
+*RESNUCLE          3.      -26.      100.             rc2p5d2   1.15E-4dc2p5d2
+*RESNUCLE          3.      -26.      100.             rc2p5d3   1.15E-4dc2p5d3
+*RESNUCLE          3.      -26.      100.             rc2p5d4   1.15E-4dc2p5d4
+*RESNUCLE          3.      -26.      100.             rc2p6d1   1.15E-4dc2p6d1
+*RESNUCLE          3.      -26.      100.             rc2p6d2   1.15E-4dc2p6d2
+*RESNUCLE          3.      -26.      100.             rc2p6d3   1.15E-4dc2p6d3
+*RESNUCLE          3.      -26.      100.             rc2p6d4   1.15E-4dc2p6d4
+*RESNUCLE          3.      -26.      100.             rc2p7d1   1.15E-4dc2p7d1
+*RESNUCLE          3.      -26.      100.             rc2p7d2   1.15E-4dc2p7d2
+*RESNUCLE          3.      -26.      100.             rc2p7d3   1.15E-4dc2p7d3
+*RESNUCLE          3.      -26.      100.             rc2p7d4   1.15E-4dc2p7d4
+*DCYSCORE         -1.                       dc2p1d1   dc2p7d4          RESNUCLE
 * Begin estimators/scoring
 USERDUMP        100.       77.       0.0        1.                    mjdud.txt
-USERWEIG                             0.0                  1.       0.0
-SCORE         ENERGY     MUON-
+* For EVENTDAT binary script to work ENERGY cannot be Part1
+SCORE          MUONS    ENERGY
 RANDOMIZ          1.
-START         10000.
+START        100000.
 STOP

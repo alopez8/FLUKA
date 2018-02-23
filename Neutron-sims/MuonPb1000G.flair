@@ -1,0 +1,225 @@
+#!/usr/local/flair/flair
+# FLUKA Project file
+Version: 2
+Title: 1000 GeV Muons Incident on 1 m^3 of Natural Pb. Neutron tracker.
+Input: MuonPb1000G.inp
+Exec: MNPb_sim
+Submit: *Default
+Tabs: 0.1 0.32 0.56 0.81 1.0
+Page: Plot
+Source: bxdraw_routine/mgdraw.f
+DefMain: True
+LinkPrg: lfluka
+F77bound: True
+F77dline: False
+
+# Run information
+Run: <default>
+	Prev:     0
+	Last:     10
+	Status:   3
+	Pid:      0
+	StartRun: 1518662871
+
+	# USRxxx data file: MuonPb1000G_26.rnc
+	Data: \I_\U.\e
+		Unit: 26
+		Type: r
+		Rule: +,\I\d\d\d_fort\.\U
+		Rule: +,\I\d\d\d_ftn\.\U
+	End
+
+	# USRxxx data file: MuonPb1000G_27.rnc
+	Data: \I_\U.\e
+		Unit: 27
+		Type: r
+		Rule: +,\I\d\d\d_fort\.\U
+		Rule: +,\I\d\d\d_ftn\.\U
+	End
+
+	# USRxxx data file: MuonPb1000G_30.cll
+	Data: MuonPb1000G_30.cll
+		Unit: 30
+		Type: c
+		Rule: +,\I\d\d\d_fort\.\U
+		Rule: +,\I\d\d\d_ftn\.\U
+	End
+End
+
+# Geometry Information
+Geometry:
+	Frame.bsplit: 0.99
+	Frame.tsplit: 0.5
+	Frame.vsplit: 0.01
+End
+
+# Geometry plot "GeoViewer Red plot"
+Plot: Red
+	Format: .eps
+	Type:   Geometry
+	basisu: 1 0 0
+	basisv: 0 1 0
+	boundaries: 1
+	cbcolors: 0
+	cblog: False
+	cbpalette: FLUKA
+	cbround: 0
+	cbtics: 0
+	coord: X-Y
+	cpd: 0
+	extends: 2513.32 1884.99
+	grid: 0
+	index: 0
+	labels: 1
+	layer: Media
+	origin: 0 0 0
+	subtype: Material
+	title: GeoViewer Red plot
+	x2log: False
+	x2tics: 0
+	xlog: False
+	y2log: False
+	y2tics: 0
+	ylog: False
+	zlog: False
+	ztics: 0
+End
+
+# Geometry plot "GeoViewer Green plot"
+Plot: Green
+	Format: .eps
+	Type:   Geometry
+	basisu: 0 0 1
+	basisv: 1 0 0
+	boundaries: 1
+	cbcolors: 0
+	cblog: False
+	cbpalette: FLUKA
+	cbround: 0
+	cbtics: 0
+	coord: Z-X
+	cpd: 0
+	extends: 319.882 239.911
+	grid: 0
+	index: 0
+	labels: 1
+	layer: Media
+	origin: 0 0 0
+	subtype: Material
+	title: GeoViewer Green plot
+	x2log: False
+	x2tics: 0
+	xlog: False
+	y2log: False
+	y2tics: 0
+	ylog: False
+	zlog: False
+	ztics: 0
+End
+
+# Geometry plot "GeoViewer Blue plot"
+Plot: Blue
+	Format: .eps
+	Type:   Geometry
+	basisu: 0 0 1
+	basisv: 0 1 0
+	boundaries: 1
+	cbcolors: 0
+	cblog: False
+	cbpalette: FLUKA
+	cbround: 0
+	cbtics: 0
+	coord: Z-Y
+	cpd: 0
+	extends: 267.524 200.643
+	grid: 0
+	index: 0
+	labels: 1
+	layer: Media
+	origin: 0 0 0
+	subtype: Material
+	title: GeoViewer Blue plot
+	x2log: False
+	x2tics: 0
+	xlog: False
+	y2log: False
+	y2tics: 0
+	ylog: False
+	zlog: False
+	ztics: 0
+End
+
+# Geometry plot "GeoViewer Magenta plot"
+Plot: Magenta
+	Format: .eps
+	Type:   Geometry
+	basisu: -1 0 0
+	basisv: 0 1 0
+	boundaries: 1
+	cbtics: 0
+	coord: X-Y
+	extends: 488.095 37632.1
+	labels: 1
+	layer: Media
+	origin: 0 0 0
+	subtype: Material
+	title: GeoViewer Magenta plot
+	x2tics: 0
+	y2tics: 0
+	ztics: 0
+End
+
+# RESNUCLE plot "RESNUCLE MuonPb1000G 26"
+Plot: MuonPb1000G_26_plot
+	Format: .eps
+	Type:   RESNUCLE
+	datafile: MuonPb1000G_26.rnc
+	title: RESNUCLE MuonPb1000G 26
+End
+
+# RESNUCLE plot "RESNUCLE MuonPb1000G 27"
+Plot: MuonPb1000G_27_plot
+	Format: .eps
+	Type:   RESNUCLE
+	datafile: MuonPb1000G_27.rnc
+	title: RESNUCLE MuonPb1000G 27
+End
+
+# USR-1D plot "1000 GeV Muons on Pb "
+Plot: MuonPb1000G_30_plot
+	Format: .pdf
+	Type:   USR-1D
+	block.0: 0
+	cbcolors: 0
+	cblog: False
+	cbpalette: FLUKA
+	cbround: 0
+	cbtics: 0
+	cpd: 0
+	det.0: 0
+	file.0: MuonPb1000G_30_tab.lis
+	grid: 0
+	index: 0
+	key.0: 1
+	lc.0: red
+	lw.0: 2
+	name.0: Detector 1
+	ndetectors: 1
+	ps.0: 1
+	pt.0: 0
+	show.0: 1
+	title: 1000 GeV Muons on Pb 
+	with.0: histogram
+	x.0: 2
+	x2log: False
+	x2tics: 0
+	xlabel: E [GeV]
+	xlog: True
+	y.0: 0
+	y2log: False
+	y2tics: 0
+	ylabel: dPhi/dE
+	ylog: True
+	zlog: False
+	ztics: 0
+End

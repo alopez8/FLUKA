@@ -6,7 +6,7 @@ RPP cavbox     -3708.43 396.21 -152.4 152.4 -251.5 1181.06
 * !!!!!!!!!!!!!!!!begin poly bodies | box(124.46,106.68,117.348) added 60 cm to x and z added 75cm to -x and 75cm to +z
 * borated poly inside inch of body
 RPP poly       -211.68 136.68 -117.348 117.348 -154.46 229.46
-RPP borpoly    -196.44 121.44 -83.82 104.14 -154.46 216.76
+RPP borpoly    -196.44 121.44 -83.82 104.14 -141.76 216.76
 * box(109.22,88.9,91.44) translated to (0,0,10.16) added 60 cm to x and z
 RPP pkt        -193.9 118.9 -81.28 101.6 -139.22 214.22
 * (129.54,109.22,38.1) @ (0,0,-119.38) Overfloor widened (og boxy=109.22) added 60 cm to x & z added 75 cm to -x & +z
